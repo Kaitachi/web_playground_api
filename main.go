@@ -1,31 +1,33 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
-	"log"
+	"time"
 	"net/http"
+	"github.com/gin-gonic/gin"
 )
 
 type Time struct {
+	TimeFormat	string `json:"time_format"`
 	CurrentTime string `json:"current_time"`
 }
 
 func main() {
-	// defining router
-	mux := http.NewServeMux()
-	mux.HandleFunc("/time", getTime)
-
+	// Gin Router
+	router := gin.Default()
+	router.GET("/time", getTime)
 
 	// starting server
-	fmt.Println("Server is running at port :80")
-	log.Fatal(http.ListenAndServe(":80", mux))
+	router.Run()
 }
 
-func getTime(w http.ResponseWriter, r *http.Request) {
+func getTime(c *gin.Context) {
 	currentTime := []Time{
-		{ CurrentTime: http.TimeFormat },
+		{
+			TimeFormat: http.TimeFormat,
+			CurrentTime: time.Now().Format(time.RFC3339),
+		},
 	}
 
-	json.NewEncoder(w).Encode(currentTime)
+	c.IndentedJSON(http.StatusOK, currentTime)
 }
+
