@@ -18,8 +18,8 @@ func main() {
 
 
 	// starting server
-	fmt.Println("Server is running at port :8080")
-	log.Fatal(http.ListenAndServe(":8080", mux))
+	fmt.Println("Server is running at port :80")
+	log.Fatal(http.ListenAndServe(":80", mux))
 }
 
 func getTime(w http.ResponseWriter, r *http.Request) {
