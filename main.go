@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+	"fmt"
 	"time"
 	"net/http"
 	"github.com/gin-gonic/gin"
@@ -17,7 +19,7 @@ func main() {
 	router.GET("/time", getTime)
 
 	// starting server
-	router.Run()
+	router.Run(fmt.Sprintf("%s:%s", os.Getenv("API_HOST"), os.Getenv("PORT")))
 }
 
 func getTime(c *gin.Context) {

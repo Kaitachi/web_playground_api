@@ -1,0 +1,18 @@
+version: "3"
+
+tasks:
+  default:
+    desc: Show all tasks
+    cmds:
+      - task --list-all
+
+  up:
+    desc: Start up API subproject
+    dotenv: ['.env']
+    cmds:
+      - go run main.go
+
+  docker:image:
+    desc: Generate image for API subproject
+    cmds:
+      - docker image build -t web_playground_api .
